@@ -136,14 +136,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             min-height: 100vh;
         }
 
-        .top-header {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            width: 100%;
-        }
 
         .page-heading {
             flex: 1;
@@ -241,10 +233,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <i class="bi bi-house"></i>
             <span class="menu-text">Home</span>
         </a>
-        <a href="<?= $baseUrl ?>/index.php#available-sessions" class="menu-link">
-            <i class="bi bi-calendar-event"></i>
-            <span class="menu-text">Browse Activities</span>
-        </a>
+        <a href="<?= $baseUrl ?>/activities.php" class="menu-link <?= $currentPage === 'activities.php' ? 'active' : '' ?>">
+    <i class="bi bi-calendar-event"></i>
+    <span class="menu-text">Browse Activities</span>
+</a>
         <a href="<?= $baseUrl ?>/my_reservations.php" class="menu-link <?= $currentPage === 'my_reservations.php' ? 'active' : '' ?>">
             <i class="bi bi-calendar-check"></i>
             <span class="menu-text">My Reservations</span>

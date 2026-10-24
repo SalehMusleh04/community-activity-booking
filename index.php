@@ -426,13 +426,23 @@ $displayName =$isLoggedIn
                 <h1>Discover.<span><br> Book.</span> <br> Connect.</h1>
                 <p class="hero-description">Explore community workshops, classes, and events. Choose a date and time, then reserve your place online.</p>
                 <div class="hero-actions">
-                    <a href="#available-sessions" class="btn btn-primary-custom">Explore Activities <i class="bi bi-arrow-down-right"></i></a>
-                    <?php if (!$isLoggedIn): ?>
-                        <a href="<?= $baseUrl ?>/register.php" class="btn btn-outline-custom">Create an Account</a>
-                    <?php else: ?>
-                        <a href="<?= $baseUrl ?>/my_reservations.php" class="btn btn-outline-custom">My Reservations</a>
-                    <?php endif; ?>
-                </div>
+    <a href="#available-sessions" class="btn btn-primary-custom">
+        Explore Activities <i class="bi bi-arrow-down-right"></i>
+    </a>
+    <?php if (!$isLoggedIn): ?>
+        <a href="<?= $baseUrl ?>/register.php" class="btn btn-outline-custom">
+            Create an Account
+        </a>
+    <?php elseif ($isAdmin): ?>
+        <a href="<?= $baseUrl ?>/admin/reservations.php" class="btn btn-outline-custom">
+            Manage Reservations
+        </a>
+    <?php else: ?>
+        <a href="<?= $baseUrl ?>/my_reservations.php" class="btn btn-outline-custom">
+            My Reservations
+        </a>
+    <?php endif; ?>
+</div>
                 <div class="hero-note">
                     <i class="bi bi-calendar-check"></i>
                     <span>Explore activities and manage your reservations in one place.</span>
@@ -471,8 +481,12 @@ $displayName =$isLoggedIn
                 <p class="text-muted small">Please check back soon for updated schedules.</p>
             </div>
         <?php else: ?>
+            <?php 
+                $displayedSlots = array_slice($availableSlots, 0, 6); 
+                $totalSlotsCount = count($availableSlots);
+            ?>
             <div class="row g-4">
-                <?php foreach ($availableSlots as $slot): ?>
+                <?php foreach ($displayedSlots as $slot): ?>
                     <?php 
                         $seatsLeft = (int)($slot['available_seats'] ?? $slot['capacity']);
                         $formattedDate = date('M d, Y', strtotime($slot['slot_date']));
@@ -488,12 +502,10 @@ $displayName =$isLoggedIn
                                     <?= $seatsLeft ?> seats left
                                 </span>
                             </div>
-                            <h3 class="mb-2">
-    <?= htmlspecialchars($slot['title'] ?? $slot['activity_title'] ?? $slot['activity_name'] ?? $slot['name'] ?? 'Activity Session') ?>
-</h3>
-<p class="flex-grow-1 text-muted small mb-3">
-    <?= htmlspecialchars($slot['description'] ?? $slot['activity_description'] ?? 'No session description provided.') ?>
-</p>
+                            <h3 class="mb-2"><?= htmlspecialchars($slot['title'] ?? $slot['activity_title'] ?? 'Activity Session') ?></h3>
+                            <p class="flex-grow-1 text-muted small mb-3">
+                                <?= htmlspecialchars($slot['description'] ?? 'No session description provided.') ?>
+                            </p>
                             <div class="bg-light p-3 rounded-3 mb-3 border">
                                 <div class="small text-muted mb-1"><i class="bi bi-calendar3 me-1"></i> <?= $formattedDate ?></div>
                                 <div class="small text-muted"><i class="bi bi-clock me-1"></i> <?= $formattedTime ?></div>
@@ -505,6 +517,14 @@ $displayName =$isLoggedIn
                     </div>
                 <?php endforeach; ?>
             </div>
+
+            <?php if ($totalSlotsCount > 6): ?>
+                <div class="text-center mt-5">
+                    <a href="<?= $baseUrl ?>/activities.php" class="btn btn-outline-custom px-4 py-3 shadow-sm">
+                        See All Activities (<?= $totalSlotsCount ?>) <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 </section>

@@ -59,9 +59,9 @@ require_once 'includes/header.php';
         <p class="text-muted small mb-0">Track your booking status or cancel upcoming appointments.</p>
     </div>
     <div class="d-flex align-items-center gap-3">
-        <a href="index.php#available-sessions" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-            <i class="bi bi-plus-lg me-1"></i> Book New Session
-        </a>
+        <a href="activities.php" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+    <i class="bi bi-plus-lg me-1"></i> Book New Session
+</a>
     </div>
 </div>
 
@@ -100,7 +100,9 @@ require_once 'includes/header.php';
                             <i class="bi bi-calendar-x fs-1 d-block mb-2 text-secondary"></i>
                             You don't have any bookings yet.
                             <div class="mt-2">
-                                <a href="index.php#available-sessions" class="btn btn-primary btn-sm rounded-pill px-3">Explore Activities</a>
+                              <a href="activities.php" class="btn btn-primary btn-sm rounded-pill px-3">
+    Explore Activities
+</a>
                             </div>
                         </td>
                     </tr>
